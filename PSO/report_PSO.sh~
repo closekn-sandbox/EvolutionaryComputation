@@ -1,9 +1,8 @@
-#!/bin/zsh
-## sh エミュレーションモード
-emulate -R sh
-## do
-g++ PSO_simulation100.cpp
-for var in 2 5 20
+#! /bin/zsh
+
+g++ -o report PSO_simulation100.cpp
+
+for dim in 2 5 20
 do
-    ./a.out $var
+    ./report
 done
