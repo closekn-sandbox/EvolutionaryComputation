@@ -5,12 +5,12 @@ using namespace std;
 #define GNUPLOT_PATH "/usr/local/bin/gnuplot"
 
 #define M 30    // 粒子数
-#define D 2     // 解の次元
+#define D 3     // 解の次元
 
 double c = 1.494, w = 0.729;    // PSOのパラメタ
 int Tmax = 1000;                // 最大繰り返し回数
 double Cr = 1e-5;               // 終了条件
-double Xmin = -5, Xmax = 5;     // 範囲
+double Xmin = -5.0, Xmax = 5.0; // 範囲
 double X[M][D];                 // 解配列
 double V[M][D];                 // 速度配列
 double F[M];                    // 評価関数値
@@ -29,9 +29,10 @@ int main() {
       cout << "gnuplot open error" << endl;
       exit(EXIT_FAILURE);
     }
-    fprintf(gp, "set size square\n");
-    fprintf(gp, "set xrange [%f:%f]\n", -5.0, 5.0);
-    fprintf(gp, "set yrange [%f:%f]\n", -5.0, 5.0);
+    //fprintf(gp, "set size square\n");
+    fprintf(gp, "set xrange [%f:%f]\n", Xmin, Xmax);
+    fprintf(gp, "set yrange [%f:%f]\n", Xmin, Xmax);
+    fprintf(gp, "set zrange [%f:%f]\n", Xmin, Xmax);
     fprintf(gp, "unset key\n");
 
     // 初期化
@@ -49,11 +50,11 @@ int main() {
 
     // PSO
     int t;
-    for ( t = 1; t <= Tmax; t++ ) {
+    for ( t = 0; t < Tmax; t++ ) {
       fp = fopen("move_point.dat", "w");
       fprintf(gp, "set title 't = %d'\n", t);
         for ( int i = 0; i < M; i++ ) {
-          fprintf(fp, "%f %f\n", X[i][0], X[i][1]);
+          fprintf(fp, "%f %f %f\n", X[i][0], X[i][1], X[i][2]);
           //F[i] = sphere(X[i]);
           F[i] = rastrigin(X[i]);
           if ( F[i] < Fp[i] ) {
@@ -69,7 +70,7 @@ int main() {
             }
           }
         }
-        fprintf(gp, "plot 'move_point.dat' w p pt 7 ps 0.5\n");
+        fprintf(gp, "splot 'move_point.dat' w p pt 7 ps 0.5\n");
         fclose(fp);
         fflush(gp);
         usleep(100000);
