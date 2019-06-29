@@ -6,3 +6,4 @@ To practice evolutionary computation
 - Newton method
 - PSO (Particle Swarm Optimization)
 - Markov chain algorithm
+- DE (Differential Evolution)
