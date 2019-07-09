@@ -7,3 +7,5 @@ To practice evolutionary computation
 - PSO (Particle Swarm Optimization)
 - Markov chain algorithm
 - DE (Differential Evolution)
+- GA (Genetic Algorithm)
+
