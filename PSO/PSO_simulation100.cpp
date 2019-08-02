@@ -32,7 +32,8 @@ double rastrigin(double x[]);   // Sastrigin Function
 double unbiased_dispersion(double tmp[], double ave);   // 不変分散 n = S
 double dispersion(double tmp[], double ave);            // 分散 n = S
 double average(double tmp[]);                           // tmp[]の平均 n = S
-bool isdigit_str(string s);     // 文字列数値判定
+bool isdigit_str(string s);         // 文字列数値判定
+void init_arr(double arr[], int n); // 配列初期化
 
 //-- main
 int main(int argc, char *argv[]) {
@@ -49,6 +50,7 @@ int main(int argc, char *argv[]) {
     //-- 2関数シミュレーション
     cout << "D = " << dim << endl;
     // Sphere func.
+    init_arr(Fg_s, S);
     Tave = 0.0;
     for ( int i = 0; i < S; i++ ) {
         Tave += PSO_sphere(dim);
@@ -62,6 +64,7 @@ int main(int argc, char *argv[]) {
     cout << " 標本分散s2 = " << dispersion(Fg_s, Fgave) << endl;
     cout << " 平均終了時間Tend = " << Tave << endl;
     // Rastrigin func.
+    init_arr(Fg_s, S);
     Tave = 0.0;
     for ( int i = 0; i < S; i++ ) {
         Tave += PSO_rastrigin(dim);
@@ -245,4 +248,11 @@ bool isdigit_str(string s) {
         if ( !isdigit(s[i]) ) { return false; }
     }
     return true;
+}
+
+// 配列初期化
+void init_arr(double arr[], int n) {
+  for ( int i = 0 ; i < n; i++ ) {
+    arr[i] = 0.0;
+  }
 }
