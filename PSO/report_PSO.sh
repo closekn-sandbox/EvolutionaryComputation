@@ -6,3 +6,5 @@ for dim in 2 5 20
 do
     ./report $dim
 done
+
+rm report
